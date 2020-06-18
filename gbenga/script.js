@@ -15,11 +15,13 @@ let numberOfQuestionsAsked = 0;
 let correctSoFar = 0;
 let currentWord = null;
 let lastQuestionCorrect = false;
+let mistakes = 0;
 
 // Elements on the page
 const character = document.getElementById('character');
 const block = document.getElementById('block');
 const timer = document.getElementById('timer');
+const questionDiv = document.getElementById('questions');
 const questionListUl = document.getElementById("questions-list");
 const answerForm = document.getElementById("answer-form");
 
@@ -27,6 +29,9 @@ const answerForm = document.getElementById("answer-form");
 const characterLeftPosition = "0px";
 const characterRightPosition = "200px";
 const blockStep = 10;
+let blockBottomPosition = block.offsetTop + block.offsetHeight;
+let characterTopPosition = character.offsetTop;
+let finished = blockBottomPosition > characterTopPosition;
 
 // Timer
 const startingMinutes = 2;
@@ -34,32 +39,21 @@ let time = startingMinutes * 60;
 
 // MAIN
 
-const blockBottomPosition = block.offsetTop + block.offsetHeight;
-const characterTopPosition = character.offsetTop;
-fif
-
-getWord();
-askAQuestion(currentWord);
-
+runAtStartAndWhenRight();
 answerForm.addEventListener("submit", function(e) {
+  
     e.preventDefault();
     form = e.target;
 
     lastQuestionCorrect = checkTheAnswer(form,currentWord);
     if (lastQuestionCorrect) {
         rightAnswer();
-        getWord()
-        askAQuestion(currentWord);
+        runAtStartAndWhenRight();
     } else {
         wrongAnswer();
     }
 });
 
-//   Finish line
-if (blockBottomPosition > characterTopPosition ) {
-    const finalScore = time 
-    alert(`¡Qué bien! Puntos = ${finalScore}`)
-}
 
 // User input functions
 function moveCharacterLeft() {
@@ -85,6 +79,7 @@ function getWord() {
   }
 
 function askAQuestion(word) {
+
     questionListUl.innerHTML = ""
     const questionLi = document.createElement("li");
     questionLi.textContent = `¿Cómo se dice "${word.en}" en español?`;
@@ -108,6 +103,7 @@ function checkTheAnswer(form,word) {
 function rightAnswer() {
     console.log("right");
     blockFall();
+    
     if (numberOfQuestionsAsked % 2 == 0) {
         moveCharacterLeft();
     } else {
@@ -118,14 +114,42 @@ function rightAnswer() {
 }
 function wrongAnswer() {
     console.error("wrong");
-    const wrongLi = document.createElement("li");
-    wrongLi.innerText = "Wrong - try again"
+    if (document.querySelector('#wrong')) {
+        // don't make a new wrongLi if there's one already
+    } else {
+        // make a new wrongLi if there isn't one already
+        const wrongLi = document.createElement("li");
+        wrongLi.id = "wrong"
+        wrongLi.innerText = "Wrong - try again"
+    
+        questionListUl.appendChild(wrongLi);
+    }
+    mistakes++;
+}
+function runAtStartAndWhenRight() {
+    blockBottomPosition = block.offsetTop + block.offsetHeight;
+    characterTopPosition = character.offsetTop;
+    finished = blockBottomPosition > characterTopPosition;
 
-    questionListUl.appendChild(wrongLi);
+    getWord();
+    askAQuestion(currentWord);
+    checkIfFinished();
+
 }
 
 // Non-user input functions
-setInterval(updateCountdown, 1000);
+setInterval(runCountdown, 1000);
+
+function runCountdown() {
+
+    if (finished) {
+        timer.innerHTML = ""
+        timer.innerText = "Finito!"
+        questionDiv.innerHTML = ""
+    } else {
+        updateCountdown();
+    }
+}
     
 function updateCountdown() {
     const minutes = Math.floor(time/60);
@@ -135,4 +159,16 @@ function updateCountdown() {
     timer.innerHTML = `${minutes}:${seconds}`
     time--;
     time = time < 0 ? 0 : time; 
+}
+
+function checkIfFinished() {
+    if (finished) {
+        finish();
+    }
+}
+
+function finish() {
+    const finalScore = time 
+    alert(`¡Qué bien! Puntos = ${finalScore}, Erratas = ${mistakes}`)
+    
 }
