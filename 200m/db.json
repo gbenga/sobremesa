@@ -1,0 +1,14 @@
+{
+    "fruitAndVeg" : [
+    {"en": "watermelon", "es": "la sandía"}, 
+    {"en": "peach", "es": "el melocotón"},
+    {"en": "grapes", "es": "las uvas"},
+    {"en": "apple", "es": "la manzana"},
+    {"en": "orange", "es": "la naranja"},
+    {"en": "cauliflower", "es": "el cauliflor"},
+    {"en": "potato", "es": "la patata"},
+    {"en": "pepper", "es": "el pimiento"},
+    {"en": "sweetcorn", "es": "la maíz"},
+    {"en": "carrot", "es": "la zanahoria"}
+    ]
+}
