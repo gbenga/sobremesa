@@ -1,0 +1,162 @@
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+
+* { 
+    box-sizing: border-box;
+}
+
+body { 
+    background: url('./img/bg6.jpg') no-repeat center center/cover;
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; 
+    margin: 0; 
+    overflow: hidden; 
+    font-family: 'Lato', sans-serif;
+}
+
+h1 { 
+    position: relative;
+    /* bottom: 40px */
+}
+
+/* We have a wrapper with the class of cards
+    Each class inside has a class of card
+    From there we have a class of inner card 
+    From there we have inner class front + inner class back 
+
+*/
+
+.cards { 
+    /* bottom: 40px; */
+    perspective: 1000px; /* Gives us a 3d look */
+    position: relative; /* Position this relative so we can position things inside to absolute */
+    height: 330px; 
+    width: 510px; 
+    max-width: 100%; /* To make sure it doesnt go out of its container max-width is 100% */
+}
+
+.card { 
+    position: absolute; /* By doing this it hides every respective card underneath the first, puts each card on top of eachother */
+    opacity: 0; /* If it has a class of active, it will show, if it doesn't it shouldnt. Therefore opacity needs to be default 0 */
+    font-size: 1.5em;
+    top: 0; 
+    left: 0; 
+    height: 100%; /* Setting both height and width to 100% of the container */
+    width: 100%;
+    transform: translateX(50%) rotateY(-10deg); /* Doing this so that when you slide the card over it looks like it is come in from the side */
+    /* Also setting rotate for -10deg so its coming in at an angle */
+    transition: transform 0.4s ease, opacity 0.4s ease; /* Want this to fade in (opacity) smoothly at 0.4 seconds */
+}
+
+.card.left { 
+    transform: translateX(-50%) rotateY(10deg); /* Same as above but coming in the other way (next/prev btns) */
+}
+
+.card.active { 
+    cursor: pointer;
+    opacity: 1; /* Opacity is set to 1 for active cards to make them show (either en / es depending on your js) */
+    z-index: 10; /* High z index of 10 to make sure the active card is always on top */
+    transform: translateX(0) rotateY(0deg); /* Default setting for static card */
+}
+
+.inner-card { /* Wraps around both en / es */
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.3); /* Adds box shadow effect */
+    border-radius: 4px; /* Rounded box edges */
+    height: 100%; 
+    width: 100%;
+    position: relative; /* Because inner card front and inner card back are going to be positioned absolute within this */
+    transform-style: preserve-3d;
+    transition: transform 0.4s ease;
+}
+
+.card.show-answer .inner-card { 
+    transform: rotateX(180deg) /* when it has a class of show-answer on it, we want to take the card and rotate it 180 deg */
+}
+
+.inner-card-front, .inner-card-back { 
+    backface-visibility: hidden;
+    position: absolute; 
+    top: 0; /* Sets it to top left corner */
+    left: 0; 
+    display: flex; /* By doing this and next four lines it positions the text central to the card */
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    background: #fff; /* Covers the answer */
+}
+
+
+.inner-card-front { 
+    transform: rotateX(0deg);
+    z-index: 2;
+}
+
+.inner-card-back { 
+    transform: rotateX(180deg);
+}
+
+/* .inner-card-back::after */
+.inner-card-front::after { 
+    content: 'click to see answer    \f0a6  ';
+    font-family: 'Font Awesome 5 Free', Lato, sans-serif;
+    position: absolute; 
+    bottom: 20px; 
+    right: 20px;
+    font-weight: bold;
+    font-size: 14px;
+    color:#B0C4DE
+}
+
+.navigation { 
+    display: flex; 
+    margin: 20px 0; 
+    /* margin-left: 197px;
+    margin-top: 360px; */
+    /* bottom: 20px; */
+} 
+
+
+.navigation .nav-button { 
+    border: none;
+    background-color: transparent;
+    cursor: pointer; 
+    font-size: 16px
+}
+
+.navigation p { 
+    margin: 0 30px;
+} 
+
+.btn { 
+    visibility: hidden;
+    cursor: pointer;
+    background-color: #fff;
+    border: 1px solid #aaa; 
+    border-radius: 3px;
+    font-size: 15px; 
+    margin-top: 15px;
+    padding: 8px 13px;
+    width: 450px
+}
+
+.btn.show-btn { 
+    visibility: visible;
+    transition: 0.4s;
+}
+
+#progres {
+    border-radius: 20px;
+    width: 37%;
+    height: 20px;
+    background-color: #fff;
+  }
+  
+#bar {
+    border-radius: 20px;
+    width: 1%;
+    height: 20px;
+    background-color:#B0C4DE
+  }

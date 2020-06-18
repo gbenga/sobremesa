@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+/* @import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap'); */
+
+:root { 
+    --modal-duration: 1s; 
+    --primary-color: rgb(214, 245, 245, 0.5); 
+    --secondary-color: 
+}
+
+* { 
+    box-sizing: border-box;
+}
+
+body { 
+    background: url('./img/bg10.jpg') no-repeat center center/cover;
+    min-height: 100vh;
+    overflow: hidden;
+    /* display: flex;  */
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Lato', sans-serif;
+    margin: 0;
+    transition: transform 0.3s ease;
+    /* font-family: 'Montserrat', sans-serif; */
+}
+
+body.show-nav { 
+    transform: translate(200px) /* Width of Nav */
+}
+
+nav { 
+    background-color: var(--primary-color);
+    position: fixed;
+    top: 0; 
+    left: 0; 
+    width: 200px;
+    height: 100vh;
+    z-index: 100;
+    transform: translateX(-100%)
+}
+
+nav .logo { 
+    padding: 30px;
+    text-align: center;
+}
+
+nav .logo img { 
+    height: 75px;
+    width: 75px; 
+    border-radius: 50%;
+}
+
+nav ul { 
+    padding :0; 
+    list-style-type: none;
+    margin: 0
+}
+
+nav ul li { 
+    border-bottom: 2px solid rgba(200, 200, 200, 0.1);
+    padding: 30px 
+}
+
+nav ul li:first-of-type { 
+    border-bottom: 2px solid rgba(200, 200, 200, 0.1);
+}
+
+nav ul li a { 
+    color: black;
+    text-decoration: none;
+}
+
+nav ul li a:hover { 
+    text-decoration: underline dotted;
+}
+
+header {
+    font-size: 130%;
+    position: relative; 
+    padding: 40px 15px;
+    text-align: center;
+
+}
+
+header h1 { 
+    margin: 0;
+}
+
+header p { 
+    margin: 30px 0;
+}
+
+.toggle { 
+    /* background-color: rgb(0, 0, 0, 0.3); */
+    position: absolute; 
+    top: 300px; 
+    left: 5px;
+}
