@@ -1,15 +1,20 @@
-const words = [
+let words = [
     {en: "watermelon", es: "la sandía"}, 
     {en: "peach", es: "el melocotón"},
     {en: "grapes", es: "las uvas"},
     {en: "apple", es: "la manzana"},
     {en: "orange", es: "la naranja"},
     {en: "cauliflower", es: "el cauliflor"},
-    {en: "sweet potato", es: "la batata"},
+    {en: "potato", es: "la patata"},
     {en: "pepper", es: "el pimiento"},
     {en: "sweetcorn", es: "la maíz"},
     {en: "carrot", es: "la zanahoria"}
 ]
+const usedWords = [];
+let numberOfQuestionsAsked = 0;
+let correctSoFar = 0;
+let currentWord = null;
+let lastQuestionCorrect = false;
 
 // Elements on the page
 const character = document.getElementById('character');
@@ -32,26 +37,23 @@ let time = startingMinutes * 60;
 const blockBottomPosition = block.offsetTop + block.offsetHeight;
 const characterTopPosition = character.offsetTop;
 
-for (let wordsIndex = 0; wordsIndex < words.length; wordsIndex++) {
-    const currentWord = words[wordsIndex];
-    const nextWord = words[wordsIndex + 1];
-    
-    answerForm.addEventListener("submit", function(e) {
-        e.preventDefault();
-        form = e.target;
+
+getWord();
+askAQuestion(currentWord);
+
+answerForm.addEventListener("submit", function(e) {
+    e.preventDefault();
+    form = e.target;
+
+    lastQuestionCorrect = checkTheAnswer(form,currentWord);
+    if (lastQuestionCorrect) {
+        rightAnswer();
+        getWord()
         askAQuestion(currentWord);
-        let result = checkTheAnswer(form,currentWord);
- 
-        if (result) {
-            rightAnswer(wordsIndex);
-            // move to the next question
-            // start for loop again for the next question
-            nextQuestion();
-        } else {
-            wrongAnswer(wordsIndex);
-        }
-    });
-}
+    } else {
+        wrongAnswer();
+    }
+});
 
 //   Finish line
 if (blockBottomPosition > characterTopPosition ) {
@@ -71,6 +73,16 @@ function blockFall() {
     const newOne = `${current + blockStep}px`;
     block.style.top = newOne;
 }
+function getWord() {
+    if (words.length === 0) return { status: "words array is empty" };
+    const word = words[Math.floor(Math.random() * words.length)];
+    const wordIndex = words.findIndex((e) => e === word);
+    delete words[wordIndex];
+    words = words.filter((w) => w);
+    usedWords.push(word);
+    currentWord = word
+    return word;
+  }
 
 function askAQuestion(word) {
     questionListUl.innerHTML = ""
@@ -78,6 +90,7 @@ function askAQuestion(word) {
     questionLi.textContent = `¿Cómo se dice "${word.en}" en español?`;
 
     questionListUl.appendChild(questionLi);
+    numberOfQuestionsAsked++;
 }
 function checkTheAnswer(form,word) {
 
@@ -92,27 +105,23 @@ function checkTheAnswer(form,word) {
     }
     return result;
 }
-function rightAnswer(wordsIndex) {
+function rightAnswer() {
     console.log("right");
     blockFall();
-    if (wordsIndex % 2 == 0) {
+    if (numberOfQuestionsAsked % 2 == 0) {
         moveCharacterLeft();
     } else {
         moveCharacterRight();
     }
     form.userAnswer.value = ""
-    nextQuestion();
+    correctSoFar++;
 }
-function wrongAnswer(wordsIndex) {
+function wrongAnswer() {
     console.error("wrong");
     const wrongLi = document.createElement("li");
     wrongLi.innerText = "Wrong - try again"
 
     questionListUl.appendChild(wrongLi);
-    wordsIndex--
-}
-function nextQuestion() {
-    // calls the next question
 }
 
 // Non-user input functions
