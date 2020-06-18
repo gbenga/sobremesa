@@ -12,10 +12,11 @@
 #character{
     width: 100px;
     height: 100px;
-    background-color: aquamarine;
+    /* background-color: aquamarine; */
     position: relative;
-    top: 400px;
-    left: 100px
+    top: 390px;
+    left: 110px
+
 }
 #block{
     width: 300px;
