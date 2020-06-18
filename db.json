@@ -2,43 +2,53 @@
     "fruitAndVeg" : [
     {
         "en": "watermelon", 
-        "es": "la sandía"
+        "es": "la sandía",
+        "img": "img/watermelon.png"
     }, 
     {
         "en": "peach", 
-        "es": "el melocotón"
+        "es": "el melocotón",
+        "img": "img/peach3.png"
     },
     {
         "en": "grapes", 
-        "es": "las uvas"
+        "es": "las uvas",
+        "img": "img/grape3.png"
     },
     {
         "en": "apple", 
-        "es": "la manzana"
+        "es": "la manzana",
+        "img": "img/apple3.png"
     },
     {
         "en": "orange", 
-        "es": "la naranja"
+        "es": "la naranja",
+        "img": "img/orange.png"
     },
     {
         "en": "cauliflower", 
-        "es": "el cauliflor"
+        "es": "el cauliflor",
+        "img": "img/cauliflower.png"
     },
     {
         "en": "potato", 
-        "es": "la patata"
+        "es": "la patata",
+        "img": "img/potato.png"
     },
     {
         "en": "pepper", 
-        "es": "el pimiento"
+        "es": "el pimiento",
+        "img": "img/pepper.png"
     },
     {
         "en": "sweetcorn", 
-        "es": "la maíz"
+        "es": "la maíz",
+        "img": "img/corn.png"
     },
     {
         "en": "carrot", 
-        "es": "la zanahoria"
+        "es": "la zanahoria",
+        "img": "img/carrot.png"
     }
     ],
     "sentences" : [
