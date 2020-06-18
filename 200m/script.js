@@ -1,4 +1,5 @@
-const URL = "http://localhost:3000/fruitandveg";
+const fruitAndVegURL = "http://localhost:3000/fruitandveg";
+
 	
 
 	let words;
@@ -6,7 +7,7 @@ const URL = "http://localhost:3000/fruitandveg";
 	
 
 	function fetchWordPack() {
-	  return fetch(URL)
+	  return fetch(fruitAndVegURL)
 	    .then(function (response) {
 	      return response.json();
 	    })
