@@ -36,7 +36,7 @@ let time = startingMinutes * 60;
 
 const blockBottomPosition = block.offsetTop + block.offsetHeight;
 const characterTopPosition = character.offsetTop;
-
+fif
 
 getWord();
 askAQuestion(currentWord);
