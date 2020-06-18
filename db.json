@@ -1,14 +1,86 @@
 {
     "fruitAndVeg" : [
-    {"en": "watermelon", "es": "la sandía"}, 
-    {"en": "peach", "es": "el melocotón"},
-    {"en": "grapes", "es": "las uvas"},
-    {"en": "apple", "es": "la manzana"},
-    {"en": "orange", "es": "la naranja"},
-    {"en": "cauliflower", "es": "el cauliflor"},
-    {"en": "potato", "es": "la patata"},
-    {"en": "pepper", "es": "el pimiento"},
-    {"en": "sweetcorn", "es": "la maíz"},
-    {"en": "carrot", "es": "la zanahoria"}
+    {
+        "en": "watermelon", 
+        "es": "la sandía"
+    }, 
+    {
+        "en": "peach", 
+        "es": "el melocotón"
+    },
+    {
+        "en": "grapes", 
+        "es": "las uvas"
+    },
+    {
+        "en": "apple", 
+        "es": "la manzana"
+    },
+    {
+        "en": "orange", 
+        "es": "la naranja"
+    },
+    {
+        "en": "cauliflower", 
+        "es": "el cauliflor"
+    },
+    {
+        "en": "potato", 
+        "es": "la patata"
+    },
+    {
+        "en": "pepper", 
+        "es": "el pimiento"
+    },
+    {
+        "en": "sweetcorn", 
+        "es": "la maíz"
+    },
+    {
+        "en": "carrot", 
+        "es": "la zanahoria"
+    }
+    ],
+    "sentences" : [
+        {
+            "en": "How is your food?",
+            "es": "cómo es tu comida"
+        },
+        {
+            "en": "What would you like to drink?",
+            "es": "qué le gustaría beber"
+        },
+        {
+            "en": "It's delicious",
+            "es": "está riquísimo"
+        },
+        {
+            "en": "I would like the salt, please",
+            "es": "quisiera la sal por favor"
+        },
+        {
+            "en": "Salad is my favourite dish",
+            "es": "la ensalada es mi plato favorito"
+        },
+        {
+            "en": "For desert, I want apple tart",
+            "es": "de postre quiero tarta de manzana"
+        },
+        {
+            "en": "The food is too spicy",
+            "es": "la comida es muy picante"
+        },
+        {
+            "en": "I want the chair by the window",
+            "es": "quiero la silla a lado de la ventana"
+        },
+        {
+            "en": "Do you want some help?",
+            "es": "quieres un poco de ayuda"
+        },
+        {
+            "en": "Water, please",
+            "es": "agua por favor"
+        }
     ]
 }
