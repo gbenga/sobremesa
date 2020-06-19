@@ -30,12 +30,12 @@ let lastQuestionCorrect = false;
 let mistakes = 0;
 
 // Elements on the page
-const character = document.getElementById("character");
-const block = document.getElementById("block");
-const timer = document.getElementById("timer");
-const questionDiv = document.getElementById("questions");
-const questionListUl = document.getElementById("questions-list");
+const character = document.getElementById('character');
+const block = document.getElementById('block');
+const timer = document.getElementById('timer');
+const questionList = document.getElementById("questions-list");
 const answerForm = document.getElementById("answer-form");
+const resultDiv = document.querySelector('.result')
 
 // Positions
 const characterLeftPosition = "0px";
@@ -89,12 +89,12 @@ function getWord() {
 }
 
 function askAQuestion(word) {
-  questionListUl.innerHTML = "";
-  const questionLi = document.createElement("li");
-  questionLi.textContent = `¿Cómo se dice "${word.en}" en español?`;
+    questionList.innerHTML = ""
+    const questionHeader = document.createElement("h2");
+    questionHeader.textContent = `¿Cómo se dice "${word.en}" en español?`;
 
-  questionListUl.appendChild(questionLi);
-  numberOfQuestionsAsked++;
+    questionList.appendChild(questionHeader);
+    numberOfQuestionsAsked++;
 }
 function checkTheAnswer(form, word) {
   const userAnswer = form.userAnswer.value;
@@ -131,6 +131,12 @@ function wrongAnswer() {
     wrongLi.innerText = "Wrong - try again";
 
     questionListUl.appendChild(wrongLi);
+    const wrongInput = document.createElement("p");
+    wrongInput.innerText = "Wrong answer - try again"
+
+    resultDiv.appendChild(wrongInput);
+    // How to make this limit 1 so it doesnt print multiple times 
+    // Also move it below the answer div
   }
   mistakes++;
 }
@@ -143,6 +149,7 @@ function runAtStartAndWhenRight() {
   getWord();
   askAQuestion(currentWord);
   checkIfFinished();
+  
 }
 
 // Non-user input functions

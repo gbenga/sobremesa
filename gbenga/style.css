@@ -1,33 +1,121 @@
-*{
-    padding: 0;
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+
+* { 
+    box-sizing: border-box;
+}
+
+body { 
+    background: url('img/bg20.jpg') no-repeat center center/cover;
+    min-height: 100vh;
+    overflow: hidden;
+    /* display: flex;  */
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Lato', sans-serif;
     margin: 0;
 }
+
+/* .questions { 
+
+} */
+
+
 #game{
     width: 300px;
     height: 500px;
-    border: 2px solid;
-    margin: auto;
+    /* border: 6px solid #9ACD32;
+     */
+     border: 6px solid #006400;
+    margin: 50px 920px;
     overflow: hidden;
 }
-#character{
+
+.vine { 
+    position: absolute; 
+    right: 197px;
+    z-index: 10;
+}
+
+
+.grape { 
+    position: relative;
+    bottom: 25px;
+    left: 6px;
+    z-index: 2
+}
+
+#character {
     width: 100px;
     height: 100px;
-    /* background-color: aquamarine; */
     position: relative;
-    top: 390px;
+    top: 376px;
     left: 110px
-
 }
-#block{
+
+#block {
     width: 300px;
     height: 10px;
-    background-color: black;
+    /* background-color:#9ACD32; */
+    background-color: #006400;
     position: relative;
 }
-#timer{
-    width: 300px;
+
+
+#timer {
+    width: 350px; 
     height: 100px;
     border: 2px solid;
-    margin: auto;
-    font-size: xx-large;
+    top: 375px;
+    left: 420px;
+    position: absolute;
+    /* margin: auto; */
+    font-size: 50px;
+    text-align: center;
+    padding-top: 15px;
+}
+
+#questions-list { 
+    height: 50px;
+    width: 480px;
+    max-width: 100%;
+    background-color: #fff;
+    border-radius: 4px;
+    border: solid 1px #aaa; 
+    text-align: center;
+    position: absolute;
+    padding-bottom: 4em;
+    top: 181px; 
+    left: 355px;
+}
+
+#check { 
+    position: relative;
+    height: 43px;
+    width: 290px;
+    top: 275px; 
+    left: 375px;
+    font-size: 19px;
+    text-align: center; 
+    border-radius: 4px;
+    border: solid 1px #aaa; 
+}
+
+.result { 
+    position: relative;
+    top: 268px; 
+    left: 430px;
+    font-size: 15px;
+    transition: fage
+}
+
+#btn { 
+    position: relative;
+    height: 43px;
+    width: 140px;
+    top: 275px; 
+    left: 395px;
+    font-size: 16px;
+    background-color: #fff;
+    border-radius: 4px;
+    border: solid 1px #aaa; 
 }

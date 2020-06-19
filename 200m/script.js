@@ -4,22 +4,22 @@ let words;
 fetchWordPack();
 
 function fetchWordPack() {
-	return fetch(fruitAndVegURL)
-	.then(function (response) {
-		return response.json();
-	})
-	.then(function (wordsArray) {
-		words = wordsArray;
-		console.log(words);
-	})
-	.then(function () {
-		runAtStartAndWhenRight();
-		setInterval(runCountdown, 1000);
-	})
-	.catch(function (error) {
-		alert("Getting the word pack didn't work");
-		console.log(error.message);
-	});
+  return fetch(fruitAndVegURL)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (wordsArray) {
+      words = wordsArray;
+      console.log(words);
+    })
+    .then(function () {
+      runAtStartAndWhenRight();
+      setInterval(runCountdown, 1000);
+    })
+    .catch(function (error) {
+      alert("Getting the word pack didn't work");
+      console.log(error.message);
+    });
 }
 
 const usedWords = [];
@@ -33,9 +33,11 @@ let mistakes = 0;
 const character = document.getElementById("character");
 const block = document.getElementById("block");
 const timer = document.getElementById("timer");
-const questionDiv = document.getElementById("questions");
-const questionListUl = document.getElementById("questions-list");
+// deletable?
+// const questionDiv = document.getElementById("questions");
+const questionList = document.getElementById("questions-list");
 const answerForm = document.getElementById("answer-form");
+const resultDiv = document.querySelector('.result')
 
 // Positions
 const characterLeftPosition = "0px";
@@ -54,7 +56,6 @@ let time = startingMinutes * 60;
 answerForm.addEventListener("submit", function (e) {
 	e.preventDefault();
 	form = e.target;
-
 
 	lastQuestionCorrect = checkTheAnswer(form, currentWord);
 	if (lastQuestionCorrect) {
@@ -90,11 +91,13 @@ function getWord() {
 }
 
 function askAQuestion(word) {
-	questionListUl.innerHTML = "";
+	questionList.innerHTML = ""
 	const questionLi = document.createElement("li");
 	questionLi.textContent = `¿Cómo se dice "${word.en}" en español?`;
-
-	questionListUl.appendChild(questionLi);
+	const questionHeader = document.createElement("h2");
+    questionHeader.textContent = `¿Cómo se dice "${word.en}" en español?`;
+	
+	questionList.appendChild(questionHeader);
 	numberOfQuestionsAsked++;
 }
 function checkTheAnswer(form, word) {
@@ -126,12 +129,17 @@ function wrongAnswer() {
 	if (document.querySelector("#wrong")) {
 	// don't make a new wrongLi if there's one already
 	} else {
-	// make a new wrongLi if there isn't one already
-	const wrongLi = document.createElement("li");
-	wrongLi.id = "wrong";
-	wrongLi.innerText = "Wrong - try again";
+	// deletables?
+	// const wrongLi = document.createElement("li");
+	// wrongLi.innerText = "Wrong - try again";
+	
+	// questionListUl.appendChild(wrongLi);
+	
+	const wrongInput = document.createElement("p");
+    wrongInput.innerText = "Wrong answer - try again"
+	wrongInput.id = "wrong";
 
-	questionListUl.appendChild(wrongLi);
+    resultDiv.appendChild(wrongInput);
 	}
 	mistakes++;
 }
@@ -139,7 +147,7 @@ function runAtStartAndWhenRight() {
 	blockBottomPosition = block.offsetTop + block.offsetHeight;
 	characterTopPosition = character.offsetTop;
 	finished = blockBottomPosition > characterTopPosition;
-	const submitButton = document.querySelector("#submit-button");
+	const submitButton = document.querySelector("#btn");
 	submitButton.disabled = false;
 	getWord();
 	askAQuestion(currentWord);
