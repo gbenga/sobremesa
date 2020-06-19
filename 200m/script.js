@@ -10,7 +10,6 @@ function fetchWordPack() {
     })
     .then(function (wordsArray) {
       words = wordsArray;
-      console.log(words);
     })
     .then(function () {
       runAtStartAndWhenRight();
@@ -58,6 +57,8 @@ answerForm.addEventListener("submit", function (e) {
 	form = e.target;
 
 	lastQuestionCorrect = checkTheAnswer(form, currentWord);
+	resultDiv.innerHTML = ""
+
 	if (lastQuestionCorrect) {
 	rightAnswer();
 	runAtStartAndWhenRight();
@@ -92,6 +93,7 @@ function getWord() {
 
 function askAQuestion(word) {
 	questionList.innerHTML = ""
+
 	const questionLi = document.createElement("li");
 	questionLi.textContent = `¿Cómo se dice "${word.en}" en español?`;
 	const questionHeader = document.createElement("h2");
@@ -123,6 +125,8 @@ function rightAnswer() {
 	}
 	form.userAnswer.value = "";
 	correctSoFar++;
+	checkIfFinished();
+
 }
 function wrongAnswer() {
 	console.error("wrong");
@@ -134,7 +138,6 @@ function wrongAnswer() {
 	// wrongLi.innerText = "Wrong - try again";
 	
 	// questionListUl.appendChild(wrongLi);
-	
 	const wrongInput = document.createElement("p");
     wrongInput.innerText = "Wrong answer - try again"
 	wrongInput.id = "wrong";
@@ -149,9 +152,9 @@ function runAtStartAndWhenRight() {
 	finished = blockBottomPosition > characterTopPosition;
 	const submitButton = document.querySelector("#btn");
 	submitButton.disabled = false;
+
 	getWord();
 	askAQuestion(currentWord);
-	checkIfFinished();
 }
 
 // Non-user input functions
@@ -160,7 +163,7 @@ function runCountdown() {
 	if (finished) {
 	timer.innerHTML = "";
 	timer.innerText = "Finito!";
-	questionDiv.innerHTML = "";
+	questionList.innerHTML = "";
 	} else {
 	updateCountdown();
 	}
