@@ -1,6 +1,13 @@
 const fruitAndVegURL = "http://localhost:3000/fruitandveg";
 
 let cardsData;
+let totalNumberOfCards;
+function updateProgressPercentage() {
+  let newProgressPercentage = (currentActiveCard / totalNumberOfCards) * 100;
+  pb1.setValue(newProgressPercentage + 10);
+  return newProgressPercentage;
+}
+
 fetchWordPack();
 
 function fetchWordPack() {
@@ -10,10 +17,10 @@ function fetchWordPack() {
     })
     .then(function (wordsArray) {
       cardsData = wordsArray;
+      totalNumberOfCards = cardsData.length;
     })
     .then(function () {
       createCards();
-
     })
     .catch(function (error) {
       alert("Getting the word pack didn't work");
@@ -151,6 +158,8 @@ function updateCurrentCard() {
   // uses the currentActiveCard variable which you set at the beginning to 0
   // and cards Array length to display
   // console.log(current)
+  updateProgressPercentage();
+
 }
 // deletable
 // createCards();
@@ -210,3 +219,36 @@ prevBtn.addEventListener("click", () => {
 //       }
 //     }
 //   }
+
+class ProgressBar {
+  constructor(element, initialValue = 0) {
+    this.valueElem = element.querySelector(".progress-bar-value");
+    this.fillElem = element.querySelector(".progress-bar-fill");
+
+    this.setValue(initialValue);
+
+    // console.log(this.valueElem);
+    // console.log(this.fillElem);
+  }
+  setValue(newValue) {
+    if (newValue < 0) {
+      newValue = 0;
+    }
+
+    if (newValue > 100) {
+      newValue = 100;
+    }
+
+    this.value = newValue;
+    this.update();
+  }
+
+  update() {
+    const percentage = this.value + "%";
+
+    this.fillElem.style.width = percentage;
+    this.valueElem.textContent = percentage;
+  }
+}
+
+const pb1 = new ProgressBar(document.querySelector(".progress-bar"), 10);
