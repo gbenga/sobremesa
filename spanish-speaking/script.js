@@ -56,7 +56,7 @@ function fetchSentencePack() {
       console.log(sentences);
     })
     .then(function () {
-      getRandomSentence(sentences);
+      getRandomSentence();
       askAQuestion(currentSentence);
     })
     .catch(function (error) {
@@ -82,27 +82,8 @@ let recognition = new window.SpeechRecognition();
 let myLang = recognition.lang;
 recognition.lang = "es";
 
-recognition.continuous = true;
-// recognition.interimResults = true;
-
-// Get a random sentence from the sentences Array
-function getRandomSentence(sentences) {
-  let sentence = sentences[Math.floor(Math.random() * sentences.length)];
-  const sentenceIndex = sentences.findIndex((e) => e === sentence);
-  delete sentences[sentenceIndex];
-  sentences = sentences.filter((s) => s);
-  usedSentences.push(sentence);
-  currentSentence = sentence;
-  return sentence;
-}
-
-// Prints that question to the DOM
-function askAQuestion(sentence) {
-  const question = document.createElement("h2");
-  question.innerText = sentence.es;
-  divQ.append(question);
-  // numberOfQuestionsAsked++;
-}
+// recognition.continuous = true;
+recognition.interimResults = false; 
 
 // Start speech recognition
 recognition.start();
@@ -125,7 +106,30 @@ const usedSentences = [];
 let randomSentence = [];
 let currentSentence = null;
 let lastCorrectQ = false;
-let correctSoFar = 0;
+let questionsAsked = 0;
+
+// Get a random sentence from the sentences Array
+function getRandomSentence() {
+  let sentence = sentences[Math.floor(Math.random() * sentences.length)];
+  const sentenceIndex = sentences.findIndex((e) => e === sentence);
+  delete sentences[sentenceIndex];
+  sentences = sentences.filter((s) => s);
+  usedSentences.push(sentence);
+  currentSentence = sentence;
+  return sentence;
+}
+
+// Prints that question to the DOM
+function askAQuestion(sentence) {
+  divQ.innerHTML = "";
+  messageDiv.innerHTML = ""; 
+  const question = document.createElement("h2");
+  question.innerText = sentence.es;
+  divQ.append(question);
+
+  questionsAsked++ 
+}
+
 // might be deletable but wanted to check with you - have moved to the fetch request.
 // getRandomSentence(sentences);
 // askAQuestion(currentSentence);
@@ -145,7 +149,8 @@ function checkTheAnswer(message, currentSentence) {
 }
 
 //
-function whenSpeaking(e) {
+function doneSpeaking(e) {
+  messageDiv.innerHTML = ""
   const message = e.results[0][0].transcript;
 
   // Display what user said:
@@ -156,18 +161,26 @@ function whenSpeaking(e) {
   // Sets lastCorrectQ to true or false depending on outcome of the checkTheAnswer method
   lastCorrectQ = checkTheAnswer(message, currentSentence);
 
+  debugger; 
   if (lastCorrectQ) {
     //if true then
     h3.classList.add("right");
     rightAnswer(); // Will do something based on the condiition of right answer
     getRandomSentence(); // Will get another sentence to keep going through each sentence
-    askAQuestion(sentence); // Will ask a question with that current Word
+    
+    setTimeout(() => {
+      askAQuestion(currentSentence);  // Will ask a question with that current sentence
+    }, 2000);
+    
+  // Check if all questions have been asked 
+    if(questionsAsked === 10) { 
+      finish() 
+    }
   } else {
     h3.classList.add("wrong");
     wrongAnswer();
   }
 
-  // h3.innerHTML = '';
 }
 
 function rightAnswer() {
@@ -175,7 +188,7 @@ function rightAnswer() {
   h4.innerText = "Well done! Your pronounciation is perfect!";
   messageDiv.append(h4);
 
-  correctSoFar++;
+  // correctSoFar++;
 }
 
 function wrongAnswer() {
@@ -185,8 +198,15 @@ function wrongAnswer() {
   messageDiv.append(h4);
 }
 
+function finish() { 
+  const h3 = document.createElement("h3");
+  h3.innerText = "Finito!"
+  messageDiv.append(h3)
+  const homeBtn = document.querySelector(".home-btn");
+	homeBtn.classList.add("show");
+}
 // Add an event listener to capture this input
-recognition.addEventListener("result", whenSpeaking);
+recognition.addEventListener("result", doneSpeaking);
 
 // End SR service
 recognition.addEventListener("end", () => recognition.start());

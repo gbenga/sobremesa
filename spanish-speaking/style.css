@@ -63,6 +63,28 @@ h4 {
     color: #aaa; 
 }
 
+.home-btn { 
+    opacity: 0; 
+    z-index: -1;
+    cursor: pointer;
+    border-radius: 4px;
+    width: 200px; 
+    position: relative; 
+    top: 194px; 
+    height: 32px;
+    left: 23px;
+    background-color: #fff;
+    border: 1px solid #aaa; 
+    font-size: 15px; 
+    padding: 6px 13px;
+    transition: 0.4s
+} 
+
+.home-btn.show {
+    opacity: 1;
+    z-index: 2;
+  }
+
 /* .result { 
     image and well done or too bad message 
 } */
