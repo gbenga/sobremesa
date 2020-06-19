@@ -8,20 +8,28 @@
 </head>
 <body>
     <div id="questions">
-        <ul id="questions-list">
-
-        </ul>
+        <div id="questions-list">
+            
+        </div>
         <form action="post" id="answer-form">
-            <input type="text" name="userAnswer">
-            <input type="submit" value="Check">
+            <input type="text" name="userAnswer" id="check"> 
+            <input type="submit" value="Check answer" id="btn">
+            <div class="result"></div>
         </form>
     </div>
+
+    <div>
+    <!-- <div><img src="img/vine3.png" class="vine" /></div> -->
     <div id="game">
-        <div id="block"></div>
+        <img src="img/vine4.png" class="vine" />
+        <div id="block">
+            <img src="img/grape-vine.png" class="grape"/>
+        </div>
         <div id="character">
-            <img src="bubba.png"/>  
+            <img src="img/bubba.png"/>  
         </div>
     </div>
+</div>
     <div id="timer"></div>
     <script type="text/javascript" src="script.js"></script>
 </body>

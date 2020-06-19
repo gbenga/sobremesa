@@ -112,7 +112,8 @@ body {
   padding: 10px 20px;
   cursor: pointer;
   margin-bottom: 30px;
-  margin-left: 280px
+  margin-left: 280px;
+  background-color: rgb(243, 242, 242);
 }
 
 .check-btn:active {

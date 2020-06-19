@@ -20,8 +20,9 @@ let lastQuestionCorrect = false;
 const character = document.getElementById('character');
 const block = document.getElementById('block');
 const timer = document.getElementById('timer');
-const questionListUl = document.getElementById("questions-list");
+const questionList = document.getElementById("questions-list");
 const answerForm = document.getElementById("answer-form");
+const resultDiv = document.querySelector('.result')
 
 // Positions
 const characterLeftPosition = "0px";
@@ -44,13 +45,16 @@ askAQuestion(currentWord);
 answerForm.addEventListener("submit", function(e) {
     e.preventDefault();
     form = e.target;
+    // const input = e.target.userAnswer.value
 
     lastQuestionCorrect = checkTheAnswer(form,currentWord);
     if (lastQuestionCorrect) {
+        // input.classList.add('right');
         rightAnswer();
         getWord()
         askAQuestion(currentWord);
     } else {
+        // input.classList.add('wrong');
         wrongAnswer();
     }
 });
@@ -85,11 +89,11 @@ function getWord() {
   }
 
 function askAQuestion(word) {
-    questionListUl.innerHTML = ""
-    const questionLi = document.createElement("li");
-    questionLi.textContent = `¿Cómo se dice "${word.en}" en español?`;
+    questionList.innerHTML = ""
+    const questionHeader = document.createElement("h2");
+    questionHeader.textContent = `¿Cómo se dice "${word.en}" en español?`;
 
-    questionListUl.appendChild(questionLi);
+    questionList.appendChild(questionHeader);
     numberOfQuestionsAsked++;
 }
 function checkTheAnswer(form,word) {
@@ -118,10 +122,12 @@ function rightAnswer() {
 }
 function wrongAnswer() {
     console.error("wrong");
-    const wrongLi = document.createElement("li");
-    wrongLi.innerText = "Wrong - try again"
+    const wrongInput = document.createElement("p");
+    wrongInput.innerText = "Wrong answer - try again"
 
-    questionListUl.appendChild(wrongLi);
+    resultDiv.appendChild(wrongInput);
+    // How to make this limit 1 so it doesnt print multiple times 
+    // Also move it below the answer div
 }
 
 // Non-user input functions
