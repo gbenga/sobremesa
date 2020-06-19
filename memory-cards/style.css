@@ -147,29 +147,32 @@ h1 {
     transition: 0.4s;
 }
 
-#progres {
+/* #progres {
     border-radius: 20px;
     width: 37%;
     height: 20px;
     background-color: #fff;
-  }
+  } */
   
-#bar {
+/* #bar {
     border-radius: 20px;
     width: 1%;
     height: 20px;
     background-color:#B0C4DE
-  }
+  } */
 
 .progress-bar {
     position: relative;
-    width: 300px;
-    height: 40px;
+    border-radius: 20px;
+    width: 37%;
+    height: 20px;
     border: 1px solid #000000;
+    background-color: #fff;
 }
 .progress-bar-fill {
+    border-radius: 20px;
     height: 100%;
-    background: #59ea63;
+    background: #B0C4DE;
     transition: width 0.5s;
 }
 .progress-bar-value{
