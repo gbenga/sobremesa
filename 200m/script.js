@@ -179,6 +179,8 @@ function updateCountdown() {
 function checkIfFinished() {
 	if (finished) {
 	finish();
+	const homeBtn = document.querySelector(".home-btn");
+	homeBtn.classList.add("show");
 	}
 }
 
