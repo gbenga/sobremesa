@@ -162,7 +162,7 @@ function runAtStartAndWhenRight() {
 function runCountdown() {
 	if (finished) {
 	timer.innerHTML = "";
-	timer.innerText = "Finito!";
+	timer.innerText = "¡Acabado!";
 	questionList.innerHTML = "";
 	} else {
 	updateCountdown();
