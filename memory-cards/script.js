@@ -1,32 +1,108 @@
-const fruitAndVegURL = "http://localhost:3000/fruitandveg";
+let cardsData = [
+  {
+    en: "watermelon",
+    es: "la sandía",
+    img: "img/watermelon.png",
+  },
+  {
+    en: "peach",
+    es: "el melocotón",
+    img: "img/peach3.png",
+  },
+  {
+    en: "grapes",
+    es: "las uvas",
+    img: "img/grape3.png",
+  },
+  {
+    en: "apple",
+    es: "la manzana",
+    img: "img/apple3.png",
+  },
+  {
+    en: "orange",
+    es: "la naranja",
+    img: "img/orange.png",
+  },
+  {
+    en: "cauliflower",
+    es: "el cauliflor",
+    img: "img/cauliflower.png",
+  },
+  {
+    en: "potato",
+    es: "la patata",
+    img: "img/potato.png",
+  },
+  {
+    en: "pepper",
+    es: "el pimiento",
+    img: "img/pepper.png",
+  },
+  {
+    en: "sweetcorn",
+    es: "el maíz",
+    img: "img/corn.png",
+  },
+  {
+    en: "carrot",
+    es: "la zanahoria",
+    img: "img/carrot.png",
+  },
+];
+let totalNumberOfCards = cardsData.length;
 
-let cardsData;
-let totalNumberOfCards;
+class ProgressBar {
+  constructor(element, initialValue = 0) {
+    this.valueElem = element.querySelector(".progress-bar-value");
+    this.fillElem = element.querySelector(".progress-bar-fill");
+
+    this.setValue(initialValue);
+  }
+  setValue(newValue) {
+    if (newValue < 0) {
+      newValue = 0;
+    }
+
+    if (newValue > 100) {
+      newValue = 100;
+    }
+
+    this.value = newValue;
+    this.update();
+  }
+
+  update() {
+    const percentage = this.value + "%";
+
+    this.fillElem.style.width = percentage;
+    this.valueElem.textContent = percentage;
+  }
+}
+const pb1 = new ProgressBar(document.querySelector(".progress-bar"), 10);
 function updateProgressPercentage() {
   let newProgressPercentage = (currentActiveCard / totalNumberOfCards) * 100;
   pb1.setValue(newProgressPercentage + 10);
   return newProgressPercentage;
 }
 
-fetchWordPack();
-
-function fetchWordPack() {
-  return fetch(fruitAndVegURL)
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (wordsArray) {
-      cardsData = wordsArray;
-      totalNumberOfCards = cardsData.length;
-    })
-    .then(function () {
-      createCards();
-    })
-    .catch(function (error) {
-      alert("Getting the word pack didn't work");
-      console.log(error.message);
-    });
-}
+// function fetchWordPack() {
+//   return fetch(fruitAndVegURL)
+//     .then(function (response) {
+//       return response.json();
+//     })
+//     .then(function (wordsArray) {
+//       cardsData = wordsArray;
+//       totalNumberOfCards = cardsData.length;
+//     })
+//     .then(function () {
+//       createCards();
+//     })
+//     .catch(function (error) {
+//       alert("Getting the word pack didn't work");
+//       console.log(error.message);
+//     });
+// }
 
 const cardsContainer = document.getElementById("cards-container");
 const prevBtn = document.getElementById("prev");
@@ -46,50 +122,7 @@ let currentActiveCard = 0;
 // Create an array to sotre DOM data
 const cardsArray = [];
 
-// Store card Data
-// deletable
-// const cardsData = [
-//     {
-//         en: 'img/watermelon.png',
-//         es: 'la sandia'
-//     },
-//     {
-//         en: 'img/grape3.png',
-//         es: 'las uvas'
-//     },
-//     {
-//         en: 'img/orange.png',
-//         es: 'la naranja'
-//     },
-//     {
-//         en: 'img/apple3.png',
-//         es: 'la manzana'
-//     },
-//     {
-//         en: 'img/peach3.png',
-//         es: 'el melocotón'
-//     },
-//     {
-//         en: 'img/corn.png',
-//         es: 'la maiz'
-//     },
-//     {
-//         en: 'img/pepper.png',
-//         es: 'el pimiento'
-//     },
-//     {
-//         en: 'img/carrot.png',
-//         es: 'la zanahoria'
-//     },
-//     {
-//         en: 'img/potato.png',
-//         es: 'la batata'
-//     },
-//     {
-//         en: 'img/cauliflower.png',
-//         es: 'el cauliflor'
-//     }
-// ];
+createCards();
 
 // Create all cards
 function createCards() {
@@ -159,10 +192,7 @@ function updateCurrentCard() {
   // and cards Array length to display
   // console.log(current)
   updateProgressPercentage();
-
 }
-// deletable
-// createCards();
 
 nextBtn.addEventListener("click", () => {
   // using className to ovvewrite whatever is the class is set to (instead of classList)
@@ -219,36 +249,3 @@ prevBtn.addEventListener("click", () => {
 //       }
 //     }
 //   }
-
-class ProgressBar {
-  constructor(element, initialValue = 0) {
-    this.valueElem = element.querySelector(".progress-bar-value");
-    this.fillElem = element.querySelector(".progress-bar-fill");
-
-    this.setValue(initialValue);
-
-    // console.log(this.valueElem);
-    // console.log(this.fillElem);
-  }
-  setValue(newValue) {
-    if (newValue < 0) {
-      newValue = 0;
-    }
-
-    if (newValue > 100) {
-      newValue = 100;
-    }
-
-    this.value = newValue;
-    this.update();
-  }
-
-  update() {
-    const percentage = this.value + "%";
-
-    this.fillElem.style.width = percentage;
-    this.valueElem.textContent = percentage;
-  }
-}
-
-const pb1 = new ProgressBar(document.querySelector(".progress-bar"), 10);
