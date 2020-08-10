@@ -1,69 +1,45 @@
-const sentencesURL = "http://localhost:3000/sentences";
-// might be deleteable but tbc
-// const sentences = [
-//     {
-//         en: 'How is your food?',
-//         es: 'cómo es tu comida'
-//     },
-//     {
-//         en: 'What would you like to drink?',
-//         es: 'qué le gustaría beber'
-//     },
-//     {
-//         en: "It's delicious",
-//         es: 'está riquísimo'
-//     },
-//     {
-//         en: 'I would like the salt, please',
-//         es: 'quisiera la sal por favor'
-//     },
-//     {
-//         en: 'Salad is my favourite dish',
-//         es: 'la ensalada es mi plato favorito'
-//     },
-//     {
-//         en: "For desert, I want apple tart",
-//         es: 'de postre quiero tarta de manzana'
-//     },
-//     {
-//         en: 'The food is too spicy',
-//         es: 'la comida es muy picante'
-//     },
-//     {
-//         en: 'I want the chair by the window',
-//         es: 'quiero la silla a lado de la ventana'
-//     },
-//     {
-//         en: 'Do you want some help?',
-//         es: 'quieres un poco de ayuda'
-//     },
-//     {
-//         en: 'Water, please',
-//         es: 'agua por favor'
-//     }
-// ];
-
-let sentences;
-fetchSentencePack();
-
-function fetchSentencePack() {
-  return fetch(sentencesURL)
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (sentencesArray) {
-      sentences = sentencesArray;
-      console.log(sentences);
-    })
-    .then(function () {
-      getRandomSentence();
-      askAQuestion(currentSentence);
-    })
-    .catch(function (error) {
-      alert("Getting the sentence pack didn't work");
-      console.log(error.message);
-    });
-}
+let sentences = [
+  {
+    en: "How is your food?",
+    es: "cómo es tu comida",
+  },
+  {
+    en: "What would you like to drink?",
+    es: "que le gustaría beber",
+  },
+  {
+    en: "It's delicious",
+    es: "está riquísimo",
+  },
+  {
+    en: "I would like the salt, please",
+    es: "quisiera la sal por favor",
+  },
+  {
+    en: "Salad is my favourite dish",
+    es: "la ensalada es mi plato favorito",
+  },
+  {
+    en: "For desert, I want apple tart",
+    es: "de postre quiero tarta de manzana",
+  },
+  {
+    en: "The food is too spicy",
+    es: "la comida es muy picante",
+  },
+  {
+    en: "I want the chair by the window",
+    es: "quiero un pastel",
+  },
+  {
+    en: "Do you want some help?",
+    es: "quieres un poco de ayuda",
+  },
+  {
+    en: "Water, please",
+    es: "agua por favor",
+  },
+];
 
 // Grabbing the DOM Element
 const divQ = document.querySelector(".question-div");
@@ -83,7 +59,7 @@ let myLang = recognition.lang;
 recognition.lang = "es";
 
 // recognition.continuous = true;
-recognition.interimResults = false; 
+recognition.interimResults = false;
 
 // Start speech recognition
 recognition.start();
@@ -118,16 +94,18 @@ function getRandomSentence() {
   currentSentence = sentence;
   return sentence;
 }
+getRandomSentence();
+askAQuestion(currentSentence);
 
 // Prints that question to the DOM
 function askAQuestion(sentence) {
   divQ.innerHTML = "";
-  messageDiv.innerHTML = ""; 
+  messageDiv.innerHTML = "";
   const question = document.createElement("h2");
   question.innerText = sentence.es;
   divQ.append(question);
 
-  questionsAsked++ 
+  questionsAsked++;
 }
 
 // might be deletable but wanted to check with you - have moved to the fetch request.
@@ -150,7 +128,7 @@ function checkTheAnswer(message, currentSentence) {
 
 //
 function doneSpeaking(e) {
-  messageDiv.innerHTML = ""
+  messageDiv.innerHTML = "";
   const message = e.results[0][0].transcript;
 
   // Display what user said:
@@ -161,26 +139,24 @@ function doneSpeaking(e) {
   // Sets lastCorrectQ to true or false depending on outcome of the checkTheAnswer method
   lastCorrectQ = checkTheAnswer(message, currentSentence);
 
-  debugger; 
   if (lastCorrectQ) {
     //if true then
     h3.classList.add("right");
     rightAnswer(); // Will do something based on the condiition of right answer
     getRandomSentence(); // Will get another sentence to keep going through each sentence
-    
+
     setTimeout(() => {
-      askAQuestion(currentSentence);  // Will ask a question with that current sentence
+      askAQuestion(currentSentence); // Will ask a question with that current sentence
     }, 2000);
-    
-  // Check if all questions have been asked 
-    if(questionsAsked === 10) { 
-      finish() 
+
+    // Check if all questions have been asked
+    if (questionsAsked === 10) {
+      finish();
     }
   } else {
     h3.classList.add("wrong");
     wrongAnswer();
   }
-
 }
 
 function rightAnswer() {
@@ -198,12 +174,12 @@ function wrongAnswer() {
   messageDiv.append(h4);
 }
 
-function finish() { 
+function finish() {
   const h3 = document.createElement("h3");
-  h3.innerText = "Finito!"
-  messageDiv.append(h3)
+  h3.innerText = "Finito!";
+  messageDiv.append(h3);
   const homeBtn = document.querySelector(".home-btn");
-	homeBtn.classList.add("show");
+  homeBtn.classList.add("show");
 }
 // Add an event listener to capture this input
 recognition.addEventListener("result", doneSpeaking);
