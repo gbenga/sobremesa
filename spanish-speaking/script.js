@@ -47,6 +47,24 @@ const messageDiv = document.getElementById("message");
 // const resultDiv = document.querySelector('.result')
 // const input = document.querySelector('.input')
 
+// Initialize variable
+const usedSentences = [];
+let randomSentence = [];
+let currentSentence = null;
+let lastCorrectQ = false;
+let questionsAsked = 0;
+
+// Get a random sentence from the sentences Array
+function getRandomSentence() {
+  let sentence = sentences[Math.floor(Math.random() * sentences.length)];
+  const sentenceIndex = sentences.findIndex((e) => e === sentence);
+  delete sentences[sentenceIndex];
+  sentences = sentences.filter((s) => s);
+  usedSentences.push(sentence);
+  currentSentence = sentence;
+  return sentence;
+}
+
 // Need to initialize a Speech Recognition Object
 window.SpeechRecognition =
   window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -77,26 +95,6 @@ recognition.start();
 // let spanishSentences = speechArray.map(x => x.es)
 // console.log(spanishSentences)
 
-// Initialize variable
-const usedSentences = [];
-let randomSentence = [];
-let currentSentence = null;
-let lastCorrectQ = false;
-let questionsAsked = 0;
-
-// Get a random sentence from the sentences Array
-function getRandomSentence() {
-  let sentence = sentences[Math.floor(Math.random() * sentences.length)];
-  const sentenceIndex = sentences.findIndex((e) => e === sentence);
-  delete sentences[sentenceIndex];
-  sentences = sentences.filter((s) => s);
-  usedSentences.push(sentence);
-  currentSentence = sentence;
-  return sentence;
-}
-getRandomSentence();
-askAQuestion(currentSentence);
-
 // Prints that question to the DOM
 function askAQuestion(sentence) {
   divQ.innerHTML = "";
@@ -108,9 +106,8 @@ function askAQuestion(sentence) {
   questionsAsked++;
 }
 
-// might be deletable but wanted to check with you - have moved to the fetch request.
-// getRandomSentence(sentences);
-// askAQuestion(currentSentence);
+getRandomSentence();
+askAQuestion(currentSentence);
 
 // Checks to see whether the message matches the sentence you passed through
 function checkTheAnswer(message, currentSentence) {
@@ -142,7 +139,7 @@ function doneSpeaking(e) {
   if (lastCorrectQ) {
     //if true then
     h3.classList.add("right");
-    rightAnswer(); // Will do something based on the condiition of right answer
+    rightAnswer(); // Will do something based on the condition of right answer
     getRandomSentence(); // Will get another sentence to keep going through each sentence
 
     setTimeout(() => {
