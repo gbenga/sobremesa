@@ -1,21 +1,24 @@
 # Sobremesa
 
-## A collection of minigames to help you improve your Spanish, using JavaScript
-
-![Homepage](/gif/homepage.png)
-![Flash Cards](/gif/flash-cards.gif)
-![Spanish Speaking](/gif/spanish-speaking.gif)
+A collection of minigames to help you improve your Spanish, using JavaScript
 
 ### Table of Contents
 
+- [Screenshots](#screenshots)
 - [Demo](#demo)
 - [Technologies](#technologies)
 - [Usage and Features](#usage-and-features)
 - [Installation](#installation)
 
+## **Screenshots**
+
+![Homepage](/gif/homepage.png)
+![Flash Cards](/gif/flash-cards.gif)
+![Spanish Speaking](/gif/spanish-speaking.gif)
+
 ## **Demo**
 
-A video demo is available [here](https://www.loom.com/share/5e7e8555c73d40959603b4d548672be0)
+A full video demo is available [here](https://www.loom.com/share/5e7e8555c73d40959603b4d548672be0)
 
 Sobremesa is also live, try it for yourself: [here](https://sobremesa.netlify.app/)
 
