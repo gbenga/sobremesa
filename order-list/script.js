@@ -1,36 +1,37 @@
-const draggableList = document.getElementById('draggable-list');
-const check = document.getElementById('check');
-const container = document.querySelector('.container')
+//Global variables
 const spanishNumbers = [
-  'uno', 
-  'dos', 
-  'tres', 
-  'cuatro',
-  'cinco', 
-  'seis', 
-  'siete', 
-  'ocho', 
-  'nueve', 
-  'diez'
-]
-
-// Store listitems
+  "uno",
+  "dos",
+  "tres",
+  "cuatro",
+  "cinco",
+  "seis",
+  "siete",
+  "ocho",
+  "nueve",
+  "diez",
+];
 const listItems = [];
-
 let dragStartIndex;
 
+//Elements
+const draggableList = document.getElementById("draggable-list");
+const check = document.getElementById("check");
+const container = document.querySelector(".container");
+
+//Main
 createList();
 
-// Insert list items into DOM
+// Functions
 function createList() {
   [...spanishNumbers]
-    .map(a => ({ value: a, sort: Math.random() }))
+    .map((a) => ({ value: a, sort: Math.random() }))
     .sort((a, b) => a.sort - b.sort)
-    .map(a => a.value)
+    .map((a) => a.value)
     .forEach((number, index) => {
-      const listItem = document.createElement('li');
+      const listItem = document.createElement("li");
 
-      listItem.setAttribute('data-index', index);
+      listItem.setAttribute("data-index", index);
 
       listItem.innerHTML = `
         <span class="indexNumber">${index + 1}</span>
@@ -49,16 +50,15 @@ function createList() {
 }
 
 function dragStart() {
-  // console.log('Event: ', 'dragstart');
-  dragStartIndex = +this.closest('li').getAttribute('data-index');
+  dragStartIndex = +this.closest("li").getAttribute("data-index");
 }
 
 function dragEnter() {
-  this.classList.add('over');
+  this.classList.add("over");
 }
 
 function dragLeave() {
-  this.classList.remove('over');
+  this.classList.remove("over");
 }
 
 function dragOver(e) {
@@ -66,55 +66,54 @@ function dragOver(e) {
 }
 
 function dragDrop() {
-  const dragEndIndex = +this.getAttribute('data-index');
+  const dragEndIndex = +this.getAttribute("data-index");
   swapItems(dragStartIndex, dragEndIndex);
 
-  this.classList.remove('over');
+  this.classList.remove("over");
 }
 
-// Swap list items that are drag and drop
 function swapItems(fromIndex, toIndex) {
-  const itemOne = listItems[fromIndex].querySelector('.draggable');
-  const itemTwo = listItems[toIndex].querySelector('.draggable');
+  const itemOne = listItems[fromIndex].querySelector(".draggable");
+  const itemTwo = listItems[toIndex].querySelector(".draggable");
 
   listItems[fromIndex].appendChild(itemTwo);
   listItems[toIndex].appendChild(itemOne);
 }
 
-// Check the order of list items
-function checkOrder() {
+function checkOrderOfListItems() {
   listItems.forEach((listItem, index) => {
-    const number = listItem.querySelector('.draggable').innerText.trim();
+    const number = listItem.querySelector(".draggable").innerText.trim();
 
     if (number !== spanishNumbers[index]) {
-      listItem.classList.add('wrong');
+      listItem.classList.add("wrong");
     } else {
-      listItem.classList.remove('wrong');
-      listItem.classList.add('right');
+      listItem.classList.remove("wrong");
+      listItem.classList.add("right");
     }
   });
 
-
-    if (draggableList.children.length == draggableList.querySelectorAll(".right").length) {
-        container.classList.add('show')
-    }
+  if (
+    draggableList.children.length ==
+    draggableList.querySelectorAll(".right").length
+  ) {
+    container.classList.add("show");
+  }
 }
-
 
 function addEventListeners() {
-  const draggables = document.querySelectorAll('.draggable');
-  const dragListItems = document.querySelectorAll('.draggable-list li');
+  const draggables = document.querySelectorAll(".draggable");
+  const dragListItems = document.querySelectorAll(".draggable-list li");
 
-  draggables.forEach(draggable => {
-    draggable.addEventListener('dragstart', dragStart);
+  draggables.forEach((draggable) => {
+    draggable.addEventListener("dragstart", dragStart);
   });
 
-  dragListItems.forEach(item => {
-    item.addEventListener('dragover', dragOver);
-    item.addEventListener('drop', dragDrop);
-    item.addEventListener('dragenter', dragEnter);
-    item.addEventListener('dragleave', dragLeave);
+  dragListItems.forEach((item) => {
+    item.addEventListener("dragover", dragOver);
+    item.addEventListener("drop", dragDrop);
+    item.addEventListener("dragenter", dragEnter);
+    item.addEventListener("dragleave", dragLeave);
   });
 }
 
-check.addEventListener('click', checkOrder);
+check.addEventListener("click", checkOrderOfListItems);
