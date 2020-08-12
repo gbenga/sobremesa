@@ -1,6 +1,7 @@
 # Sobremesa
 
-Sobremesa is a collection of minigames to help you improve your Spanish, using JavaScript
+## Sobremesa is a collection of minigames to help you improve your Spanish, using JavaScript
+
 ![Homepage](/gif/homepage.png)
 ![Flash Cards](/gif/flash-cards.gif)
 ![Spanish Speaking](/gif/spanish-speaking.gif)
