@@ -2,16 +2,12 @@
 
 Sobremesa is a collection of minigames to help you improve your Spanish, using JavaScript
 
----
-
 ←———————- screenshots ——>
 
-### Contents
+### Table of Contents
 
 - [Demo](#demo)
-
-* [Technologies](#technologies)
-
+- [Technologies](#technologies)
 - [Usage and Features](#usage-and-features)
 - [Installation](#installation)
 
