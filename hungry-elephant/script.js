@@ -1,3 +1,4 @@
+// Global variables
 let words = [
   {
     en: "watermelon",
@@ -50,15 +51,17 @@ let words = [
     img: "img/carrot.png",
   },
 ];
-
 const usedWords = [];
 let numberOfQuestionsAsked = 0;
 let correctSoFar = 0;
 let currentWord = null;
 let lastQuestionCorrect = false;
 let mistakes = 0;
+// Timer
+const startingMinutes = 2;
+let time = startingMinutes * 60;
 
-// Elements on the page
+// Elements
 const character = document.getElementById("character");
 const block = document.getElementById("block");
 const timer = document.getElementById("timer");
@@ -74,45 +77,28 @@ let blockBottomPosition = block.offsetTop + block.offsetHeight;
 let characterTopPosition = character.offsetTop;
 let finished = blockBottomPosition > characterTopPosition;
 
-// Timer
-const startingMinutes = 2;
-let time = startingMinutes * 60;
-
 // MAIN
 runAtStartAndWhenRight();
 setInterval(runCountdown, 1000);
 
-answerForm.addEventListener("submit", function (e) {
-  e.preventDefault();
-  form = e.target;
-
-  lastQuestionCorrect = checkTheAnswer(form, currentWord);
-  resultDiv.innerHTML = "";
-
-  if (lastQuestionCorrect) {
-    rightAnswer();
-    runAtStartAndWhenRight();
-  } else {
-    wrongAnswer();
-  }
-});
-
-// User input functions
+// User-input functions
 function moveCharacterLeft() {
   character.style.left = characterLeftPosition;
 }
+
 function moveCharacterRight() {
   character.style.left = characterRightPosition;
 }
+
 function blockFall() {
   const current = block.offsetTop;
   const newOne = `${current + blockStep}px`;
   block.style.top = newOne;
 }
+
 function getWord() {
   if (words.length === 0) return { status: "words array is empty" };
   const word = words[Math.floor(Math.random() * words.length)];
-  // debugger
   const wordIndex = words.findIndex((e) => e === word);
   delete words[wordIndex];
   words = words.filter((w) => w);
@@ -132,6 +118,7 @@ function askAQuestion(word) {
   questionList.appendChild(questionHeader);
   numberOfQuestionsAsked++;
 }
+
 function checkTheAnswer(form, word) {
   const userAnswer = form.userAnswer.value;
   const correctAnswer = word.es;
@@ -144,8 +131,8 @@ function checkTheAnswer(form, word) {
   }
   return result;
 }
+
 function rightAnswer() {
-  console.log("right");
   blockFall();
 
   if (numberOfQuestionsAsked % 2 == 0) {
@@ -157,10 +144,11 @@ function rightAnswer() {
   correctSoFar++;
   checkIfFinished();
 }
+
 function wrongAnswer() {
   console.error("wrong");
   if (document.querySelector("#wrong")) {
-    // don't make a new wrongLi if there's one already
+    // If a wrongLi already exists, do not make a new one
   } else {
     const wrongInput = document.createElement("p");
     wrongInput.innerText = "Wrong answer - try again";
@@ -170,6 +158,7 @@ function wrongAnswer() {
   }
   mistakes++;
 }
+
 function runAtStartAndWhenRight() {
   blockBottomPosition = block.offsetTop + block.offsetHeight;
   characterTopPosition = character.offsetTop;
@@ -215,3 +204,19 @@ function finish() {
   const finalScore = time;
   alert(`¡Qué bien! Puntos = ${finalScore}, Erratas = ${mistakes}`);
 }
+
+//Event Listeners
+answerForm.addEventListener("submit", function (e) {
+  e.preventDefault();
+  form = e.target;
+
+  lastQuestionCorrect = checkTheAnswer(form, currentWord);
+  resultDiv.innerHTML = "";
+
+  if (lastQuestionCorrect) {
+    rightAnswer();
+    runAtStartAndWhenRight();
+  } else {
+    wrongAnswer();
+  }
+});
