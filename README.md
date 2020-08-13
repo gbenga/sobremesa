@@ -40,7 +40,7 @@ Sobremesa provides users with the ability to learn and practice basic Spanish vo
 
 ## **Installation**
 
-To use Sobremesa locally, you will need Git and Node Package Manager installed as an extension for viewing HTML in browser. From here, you will only need to clone the repo and view index.html in browser to start.
+To use Sobremesa locally, you will need Git and Node Package Manager installed as well as an extension for viewing HTML in browser. From here, you will only need to clone the repo and view index.html in browser to start.
 
 ```
 # Clone this repository
