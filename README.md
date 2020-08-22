@@ -32,7 +32,7 @@ This project is created with:
 
 Sobremesa provides users with the ability to learn and practice basic Spanish vocabulary, from fruits to common phrases. Users can:
 
-- Navigate between 4 minigames
+- Navigate between 4 mini-games
 - Use flashcards to learn the names of fruits in Spanish
 - Practice these names in a game format against a timer
 - Use a pairing exercise to learn Spanish numbers 1-10
