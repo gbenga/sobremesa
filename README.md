@@ -1,6 +1,6 @@
 # Sobremesa
 
-A collection of minigames to help you improve your Spanish, using JavaScript
+A collection of minigames to help you improve your Spanish
 
 ### Table of Contents
 
