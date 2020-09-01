@@ -1,6 +1,6 @@
 # Sobremesa
 
-A collection of minigames to help you improve your Spanish (suitable for beginners)
+A collection of minigames to help you improve your Spanish (perfect for beginners)
 
 ### Table of Contents
 
